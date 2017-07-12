@@ -7,6 +7,8 @@ import (
 	"strings"
 )
 
+//Load method Loads the variables defined in the specified file
+//If no file was specified then by default it looks for the file named .env
 func Load(customPath ...string) error {
 	const (
 		key   = iota
