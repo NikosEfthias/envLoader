@@ -1,9 +1,9 @@
 package envLoader
 
 import (
-	"os"
 	"encoding/csv"
 	"io"
+	"os"
 	"strings"
 )
 
@@ -11,7 +11,7 @@ import (
 //If no file was specified then by default it looks for the file named .env
 func Load(customPath ...string) error {
 	const (
-		key   = iota
+		key = iota
 		value
 	)
 	var path = ".env"
@@ -35,4 +35,12 @@ func Load(customPath ...string) error {
 		}
 	}
 	return nil
+}
+
+//EnvOr checks given key (k) among environment variables and returns if it exists othervise returns the given default value (v)
+func EnvOr(k, v string) string {
+	if val := os.Getenv(k); "" != val {
+		return val
+	}
+	return v
 }
