@@ -32,6 +32,11 @@ func Load(customPath ...string) error {
 		} else if nil != err {
 			return err
 		}
+		if len(line) < 2 {
+			continue
+		} else if strings.HasPrefix(strings.TrimSpace(line[key]), "#") {
+			continue
+		}
 		if err := os.Setenv(strings.TrimSpace(line[key]), strings.TrimSpace(line[value])); nil != err {
 			return err
 		}
@@ -44,7 +49,6 @@ func Load(customPath ...string) error {
 func EnvOr(k, v string) string {
 	if !envLoaded {
 		_ = Load()
-		envLoaded = true
 	}
 	if val := os.Getenv(k); "" != val {
 		return val
